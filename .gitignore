@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+
+# Ambiente virtual
+env/
+
+# Arquivos compilados
+build/
+dist/
+__pycache__/
+*.pyc
+
+# Logs e dados temporários
+*.log
+chrome_profile/
+selenium/
+
+# Pasta do Whatsapp Sender (se contiver apenas arquivos compilados)
+Whatsapp_Sender/
