@@ -1,6 +1,6 @@
 # WhatsApp Sender
 
-A desktop application built with Python and Tkinter that allows bulk sending of WhatsApp messages through WhatsApp Web.
+A desktop application built with Python and Tkinter that allows bulk sending of WhatsApp messages through WhatsApp Web. The application's logic, comments, and variable names are written in Brazilian Portuguese to better serve the local community.
 
 ## Features
 
@@ -77,6 +77,16 @@ To create a standalone executable:
 pip install pyinstaller
 pyinstaller --onefile --noconsole whatsapp_sender.py
 ```
+
+## Language Note
+
+This project uses Brazilian Portuguese for:
+- Variable and function names
+- Comments and documentation within the code
+- User interface text
+- Log messages and error handling
+
+This choice was made to make the code more accessible to the Brazilian developer community. All technical terms and coding syntax follow Python standards.
 
 ## Development Setup
 
