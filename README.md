@@ -1,149 +1,102 @@
 # WhatsApp Sender
 
-A desktop application built with Python and Tkinter that allows bulk sending of WhatsApp messages through WhatsApp Web. The application's logic, comments, and variable names are written in Brazilian Portuguese to better serve the local community.
+An automated tool for sending bulk messages through WhatsApp Web.
 
-## Features
+## Prerequisites
 
-- User-friendly graphical interface
-- Excel spreadsheet integration for contact and message management
-- Customizable message sending with conditional logic
-- Progress tracking and detailed logging
-- Random delay between messages for safety
-- Chrome WebDriver integration with WhatsApp Web
+1. Install Git:
+   - Visit [git-scm.com](https://git-scm.com/downloads)
+   - Download and run the installer for your operating system
+   - Windows users: During installation, select "Git from the command line and also from 3rd-party software"
+   - Mac users: You can also install via Homebrew: `brew install git`
+   - Linux users: Use your package manager:
+     ```bash
+     # Ubuntu/Debian
+     sudo apt-get update
+     sudo apt-get install git
 
-## Requirements
+     # Fedora
+     sudo dnf install git
 
-- Python 3.x
-- Chrome Browser
-- The following Python packages (installed automatically with requirements.txt):
-  - tkinter
-  - pandas
-  - selenium
-  - webdriver_manager
-  - openpyxl (for Excel file handling)
+     # Arch Linux
+     sudo pacman -S git
+     ```
+
+2. Install Python (version 3.8 or higher):
+   - Visit [python.org](https://www.python.org/downloads/)
+   - Download the latest Python version for your operating system
+   - During installation, check the "Add Python to PATH" option
+
+2. Install Google Chrome:
+   - If not already installed, download from [google.com/chrome](https://www.google.com/chrome/)
 
 ## Installation
 
-1. Clone this repository:
+1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/whatsapp-sender.git
-cd whatsapp-sender
+git clone https://github.com/alebialowas/Whatsapp_Sender.git
 ```
 
-2. Create and activate a virtual environment:
+2. Navigate to the directory:
+```bash
+cd Whatsapp_Sender
+```
 
-On Windows:
+3. Create a virtual environment (recommended):
 ```bash
 python -m venv venv
-venv\Scripts\activate
-```
 
-On Linux/MacOS:
-```bash
-python3 -m venv venv
+# Activate the virtual environment:
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
 source venv/bin/activate
 ```
 
-3. Install required packages:
+4. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## How to Use
 
-1. Activate the virtual environment (if not already activated)
-
-2. Run the application:
+1. Run the program:
 ```bash
-python whatsapp_sender.py
+python main.py
 ```
 
-3. Prepare your Excel file with the following columns:
-   - Telefone (Phone): Contact numbers
-   - Mensagem (Message): Message to be sent
-   - Additional columns for conditional sending (using "SIM" as trigger)
+2. Select the Excel spreadsheet containing contacts
+3. Log in to WhatsApp Web when prompted
+4. Click "Start Sending" to begin
 
-4. Select your Excel file in the application
+## Spreadsheet Structure
 
-5. Click "Iniciar Envio" (Start Sending) and scan the WhatsApp Web QR code
+The Excel file must follow this format:
+- 'Phone' column: Phone numbers (with country/area code)
+- 'Message' column: Text to be sent
+- Additional columns: Sending conditions (YES/NO)
 
-6. Monitor the progress through the application interface
+## Features
 
-## Building Executable
-
-To create a standalone executable:
-
-```bash
-pip install pyinstaller
-pyinstaller --onefile --noconsole whatsapp_sender.py
-```
-
-## Language Note
-
-This project uses Brazilian Portuguese for:
-- Variable and function names
-- Comments and documentation within the code
-- User interface text
-- Log messages and error handling
-
-This choice was made to make the code more accessible to the Brazilian developer community. All technical terms and coding syntax follow Python standards.
-
-## Development Setup
-
-For development, it's recommended to:
-
-1. Create a new virtual environment:
-```bash
-python -m venv venv
-```
-
-2. Activate the environment:
-- Windows: `venv\Scripts\activate`
-- Linux/MacOS: `source venv/bin/activate`
-
-3. Install development dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-4. Make your changes
-
-5. Test thoroughly before submitting PR
-
-## Safety and Considerations
-
-- Use this tool responsibly and in accordance with WhatsApp's terms of service
-- Be mindful of message frequency to avoid being blocked
-- Always test with a small set of numbers first
-- Ensure you have permission to message the numbers in your list
+- Bulk message sending through WhatsApp Web
+- Excel spreadsheet integration
+- User-friendly graphical interface
+- Progress tracking
+- Customizable sending conditions
+- Error handling and logging
 
 ## Contributing
 
-Contributions are welcome! Feel free to:
-- Report bugs
-- Suggest features
-- Submit pull requests
-
-## License
-
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-This means you can:
-- Use the software for any purpose
-- Change the software
-- Share the software
-- Share the changes you make
-
-But you must:
-- Distribute the source code with the software
-- Include the license and copyright notice
-- Use the same license for derivative works
-- State any changes made to the code
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## Author
 
 Alexandre Bialowas
 
-## Disclaimer
+## License
 
-This tool is for educational purposes only. Users are responsible for ensuring compliance with WhatsApp's terms of service and applicable laws regarding bulk messaging.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For questions or suggestions, please open an [issue](https://github.com/alebialowas/Whatsapp_Sender/issues).
