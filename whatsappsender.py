@@ -336,27 +336,29 @@ class WhatsAppSender:
                     break
                     
                 try:
-                    deve_enviar = False
-                    for col in df.columns[2:]:
-                        if pd.isna(df.iloc[0][col]) or pd.isna(row[col]):
-                            continue
+                    mensagens_a_enviar = []
+                    for col in df.columns[2:]:  # Começa da terceira coluna (após Telefone e Mensagem)
+                        if not pd.isna(df.iloc[0][col]) and not pd.isna(row[col]):
+                            condicao_geral = str(df.iloc[0][col]).strip().upper()
+                            condicao_individual = str(row[col]).strip().upper()
                             
-                        condicao_geral = str(df.iloc[0][col]).strip().upper()
-                        condicao_individual = str(row[col]).strip().upper()
-                        
-                        if condicao_geral == 'SIM' and condicao_individual == 'SIM':
-                            deve_enviar = True
-                            break
+                            if condicao_geral == 'SIM' and condicao_individual == 'SIM':
+                                telefone = str(row['Telefone']).strip()
+                                mensagem = str(row['Mensagem']).strip()
+                                mensagens_a_enviar.append((telefone, mensagem))
                     
-                    if deve_enviar:
-                        telefone = str(row['Telefone']).strip()
-                        mensagem = str(row['Mensagem']).strip()
-                        
-                        if self.enviar_mensagem(self.driver, telefone, mensagem):
-                            self.mensagens_enviadas += 1
-                        
-                        tempo_espera = random.uniform(10, 20)
-                        time.sleep(tempo_espera)
+                    # Se houver mensagens para enviar
+                    if mensagens_a_enviar:
+                        for telefone, mensagem in mensagens_a_enviar:
+                            if self.stop_requested:
+                                break
+                                
+                            if self.enviar_mensagem(self.driver, telefone, mensagem):
+                                self.mensagens_enviadas += 1
+                            
+                            # Adiciona um tempo de espera aleatório entre os envios
+                            tempo_espera = random.uniform(10, 20)
+                            time.sleep(tempo_espera)
                     
                     # Atualiza a barra de progresso
                     self.atualizar_progresso(index, self.total_mensagens)
