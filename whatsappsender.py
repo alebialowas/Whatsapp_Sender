@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException # noqa
 import time
 from urllib.parse import quote
 import random
@@ -18,6 +18,7 @@ import os
 import sys
 import logging
 
+
 def resource_path(relative_path):
     """Obtém o caminho absoluto para recursos empacotados ou não"""
     try:
@@ -25,6 +26,7 @@ def resource_path(relative_path):
     except Exception:
         base_path = os.path.abspath(os.path.dirname(__file__))
     return os.path.join(base_path, relative_path)
+
 
 class WhatsAppSender:
     def __init__(self, master):
@@ -42,7 +44,7 @@ class WhatsAppSender:
                 logging.StreamHandler()
             ]
         )
-        
+       
         self.setup_ui()
         self.initialize_variables()
         
@@ -54,7 +56,8 @@ class WhatsAppSender:
         self.main_frame.pack(fill=tk.BOTH, expand=True)
 
         # File selection
-        self.file_frame = ttk.LabelFrame(self.main_frame, text="Arquivo", padding="10")
+        self.file_frame = ttk.LabelFrame(
+            self.main_frame, text="Arquivo", padding="10")
         self.file_frame.pack(fill=tk.X, pady=(0, 10))
 
         self.btn_selecionar = ttk.Button(
@@ -64,7 +67,8 @@ class WhatsAppSender:
         )
         self.btn_selecionar.pack(side=tk.LEFT, padx=5)
 
-        self.lbl_planilha = ttk.Label(self.file_frame, text="Nenhuma planilha selecionada")
+        self.lbl_planilha = ttk.Label(
+            self.file_frame, text="Nenhuma planilha selecionada")
         self.lbl_planilha.pack(side=tk.LEFT, padx=5, fill=tk.X, expand=True)
 
         # Controls frame
@@ -88,7 +92,8 @@ class WhatsAppSender:
         self.btn_parar.pack(side=tk.LEFT, padx=5)
 
         # Progress frame
-        self.progress_frame = ttk.LabelFrame(self.main_frame, text="Progresso", padding="10")
+        self.progress_frame = ttk.LabelFrame(
+            self.main_frame, text="Progresso", padding="10")
         self.progress_frame.pack(fill=tk.X, pady=10)
 
         self.progress = ttk.Progressbar(
@@ -103,7 +108,8 @@ class WhatsAppSender:
         self.lbl_status.pack(fill=tk.X, pady=(5, 0))
 
         # Log frame
-        self.log_frame = ttk.LabelFrame(self.main_frame, text="Log de Envio", padding="10")
+        self.log_frame = ttk.LabelFrame(
+            self.main_frame, text="Log de Envio", padding="10")
         self.log_frame.pack(fill=tk.BOTH, expand=True)
 
         self.log_text = tk.Text(
@@ -113,7 +119,8 @@ class WhatsAppSender:
             state=tk.DISABLED
         )
 
-        scrollbar = ttk.Scrollbar(self.log_frame, orient="vertical", command=self.log_text.yview)
+        scrollbar = ttk.Scrollbar(
+            self.log_frame, orient="vertical", command=self.log_text.yview)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         self.log_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
@@ -174,11 +181,13 @@ class WhatsAppSender:
                 self.log(f"Planilha selecionada: {filename}", 'success')
         except Exception as e:
             self.log(f"Erro ao selecionar planilha: {str(e)}", 'error')
-            messagebox.showerror("Erro", f"Erro ao selecionar planilha: {str(e)}")
+            messagebox.showerror(
+                "Erro", f"Erro ao selecionar planilha: {str(e)}")
 
     def formatar_telefone(self, telefone):
         """
-        Formata o telefone no padrão adequado (por exemplo, para números brasileiros).
+        Formata o telefone no padrão adequado (
+        por exemplo, para números brasileiros).
         """
         try:
             if pd.isna(telefone):
@@ -199,7 +208,8 @@ class WhatsAppSender:
                 return f"+{telefone}"
                 
         except Exception as e:
-            self.log(f"Erro ao formatar telefone {telefone}: {str(e)}", 'error')
+            self.log(
+                f"Erro ao formatar telefone {telefone}: {str(e)}", 'error')
             return None
 
     def enviar_mensagem(self, driver, telefone, mensagem):
@@ -212,13 +222,16 @@ class WhatsAppSender:
                 self.log(f"Número inválido: {telefone}", 'error')
                 return False
 
-            url = f"https://web.whatsapp.com/send?phone={telefone_formatado}&text={quote(mensagem)}"
+            url = (
+                f"https://web.whatsapp.com/send"
+                f"?phone={telefone_formatado}&text={quote(mensagem)}")
             driver.get(url)
             
             try:
                 # Aguarda até o box de mensagem ficar clicável (20 seg)
                 input_box = WebDriverWait(driver, 20).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, "div[data-tab='10']"))
+                    EC.element_to_be_clickable(
+                        (By.CSS_SELECTOR, "div[data-tab='10']"))
                 )
                 time.sleep(2)
                 
@@ -303,7 +316,7 @@ class WhatsAppSender:
             
             try:
                 service = Service(ChromeDriverManager().install())
-            except Exception as e:
+            except Exception as e: # noqa
                 # Fallback para chromedriver local
                 chromedriver_path = resource_path(os.path.join('selenium', 'chromedriver'))
                 if sys.platform == 'win32':
